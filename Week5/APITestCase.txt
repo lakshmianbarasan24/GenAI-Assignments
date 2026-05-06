@@ -1,0 +1,176 @@
+**Functional Test Cases**
+
+1. **TC001: Read - Get All Items**
+	* Description: Verify that the API returns a list of all items when a GET request is made to the specified URL.
+	* Request:
+		+ Method: GET
+		+ URL: https://jsonplaceholder.typicode.com/posts
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: A list of items in JSON format
+2. **TC002: Create - Add New Item**
+	* Description: Verify that the API creates a new item when a POST request is made to the specified URL with a valid payload.
+	* Request:
+		+ Method: POST
+		+ URL: https://jsonplaceholder.typicode.com/posts
+		+ Request Body: {"title": "Test", "body": "Data", "userId": 1}
+	* Expected Response:
+		+ Status Code: 201
+		+ Response Body: The newly created item in JSON format
+3. **TC003: Update - Modify Item**
+	* Description: Verify that the API updates an existing item when a PUT request is made to the specified URL with a valid payload.
+	* Request:
+		+ Method: PUT
+		+ URL: https://jsonplaceholder.typicode.com/posts/1
+		+ Request Body: {"id": 1, "title": "Updated", "body": "Data", "userId": 1}
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: The updated item in JSON format
+4. **TC004: Delete - Remove Item**
+	* Description: Verify that the API deletes an existing item when a DELETE request is made to the specified URL.
+	* Request:
+		+ Method: DELETE
+		+ URL: https://jsonplaceholder.typicode.com/posts/1
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: An empty response body
+
+**Negative Test Cases**
+
+1. **TC005: Read - Get All Items with Invalid URL**
+	* Description: Verify that the API returns an error when a GET request is made to an invalid URL.
+	* Request:
+		+ Method: GET
+		+ URL: https://jsonplaceholder.typicode.com/posts/invalid
+	* Expected Response:
+		+ Status Code: 404
+		+ Response Body: An error message indicating that the resource was not found
+2. **TC006: Create - Add New Item with Invalid Payload**
+	* Description: Verify that the API returns an error when a POST request is made to the specified URL with an invalid payload.
+	* Request:
+		+ Method: POST
+		+ URL: https://jsonplaceholder.typicode.com/posts
+		+ Request Body: {"title": "Test"}
+	* Expected Response:
+		+ Status Code: 400
+		+ Response Body: An error message indicating that the payload was invalid
+3. **TC007: Update - Modify Item with Invalid Payload**
+	* Description: Verify that the API returns an error when a PUT request is made to the specified URL with an invalid payload.
+	* Request:
+		+ Method: PUT
+		+ URL: https://jsonplaceholder.typicode.com/posts/1
+		+ Request Body: {"id": 1, "title": "Updated"}
+	* Expected Response:
+		+ Status Code: 400
+		+ Response Body: An error message indicating that the payload was invalid
+4. **TC008: Delete - Remove Item with Invalid URL**
+	* Description: Verify that the API returns an error when a DELETE request is made to an invalid URL.
+	* Request:
+		+ Method: DELETE
+		+ URL: https://jsonplaceholder.typicode.com/posts/invalid
+	* Expected Response:
+		+ Status Code: 404
+		+ Response Body: An error message indicating that the resource was not found
+
+**Edge Cases**
+
+1. **TC009: Read - Get All Items with Large Number of Items**
+	* Description: Verify that the API returns a list of all items when a GET request is made to the specified URL with a large number of items.
+	* Request:
+		+ Method: GET
+		+ URL: https://jsonplaceholder.typicode.com/posts
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: A list of items in JSON format
+2. **TC010: Create - Add New Item with Large Payload**
+	* Description: Verify that the API creates a new item when a POST request is made to the specified URL with a large payload.
+	* Request:
+		+ Method: POST
+		+ URL: https://jsonplaceholder.typicode.com/posts
+		+ Request Body: A large JSON object
+	* Expected Response:
+		+ Status Code: 201
+		+ Response Body: The newly created item in JSON format
+
+**Validation Checks**
+
+1. **TC011: Validate Response Schema**
+	* Description: Verify that the API returns a response that conforms to the expected schema.
+	* Request:
+		+ Method: GET
+		+ URL: https://jsonplaceholder.typicode.com/posts
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: A JSON object that conforms to the expected schema
+2. **TC012: Validate Response Content**
+	* Description: Verify that the API returns a response that contains the expected content.
+	* Request:
+		+ Method: GET
+		+ URL: https://jsonplaceholder.typicode.com/posts
+	* Expected Response:
+		+ Status Code: 200
+		+ Response Body: A JSON object that contains the expected content
+
+**Sample Automation Code (Java RestAssured)**
+
+```java
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.junit.Test;
+
+import static io.restassured.RestAssured.given;
+
+public class ApiTest {
+
+    @Test
+    public void testReadGetAllItems() {
+        Response response = given()
+                .when()
+                .get("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(200)
+                .extract().response();
+        System.out.println(response.asString());
+    }
+
+    @Test
+    public void testCreateAddNewItem() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body("{\"title\": \"Test\", \"body\": \"Data\", \"userId\": 1}")
+                .when()
+                .post("https://jsonplaceholder.typicode.com/posts")
+                .then()
+                .statusCode(201)
+                .extract().response();
+        System.out.println(response.asString());
+    }
+
+    @Test
+    public void testUpdateModifyItem() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .body("{\"id\": 1, \"title\": \"Updated\", \"body\": \"Data\", \"userId\": 1}")
+                .when()
+                .put("https://jsonplaceholder.typicode.com/posts/1")
+                .then()
+                .statusCode(200)
+                .extract().response();
+        System.out.println(response.asString());
+    }
+
+    @Test
+    public void testDeleteRemoveItem() {
+        Response response = given()
+                .when()
+                .delete("https://jsonplaceholder.typicode.com/posts/1")
+                .then()
+                .statusCode(200)
+                .extract().response();
+        System.out.println(response.asString());
+    }
+}
+```
+
+Note: This is just a sample code and you may need to modify it to fit your specific use case. Additionally, you will need to add error handling and other features as needed.

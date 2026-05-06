@@ -1,0 +1,119 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User‑Story Quality Review – Healthcare Project</title>
+    <style>
+        body {font-family: Arial, sans-serif; margin: 20px; line-height: 1.5;}
+        h1 {color:#2E5C6E;}
+        table {border-collapse: collapse; width: 100%; max-width: 800px;}
+        th, td {border: 1px solid #ccc; padding: 8px; text-align: left;}
+        th {background-color:#f2f2f2;}
+        .score {font-weight: bold; color:#2E5C6E;}
+        .overall {font-size: 1.2em; margin-top: 20px;}
+        .improvement {margin-top: 20px;}
+        .improvement li {margin-bottom: 8px;}
+    </style>
+</head>
+<body>
+
+<h1>User‑Story Quality Review</h1>
+<p><strong>Story under review</strong>:<br>
+<em>As a user, I want to employee profile employee self so that the related functionality works as expected.</em></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Description / Findings</th>
+            <th>Score (out of 20)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Clarity</td>
+            <td>
+                The wording is ambiguous – it is unclear who the “user” is, what “employee profile employee self” means, and what “related functionality” refers to.  
+                No domain terminology (e.g., “staff self‑service portal”, “credentialing”) is used.
+            </td>
+            <td class="score">5</td>
+        </tr>
+        <tr>
+            <td>Completeness</td>
+            <td>
+                No acceptance criteria, pre‑conditions, or definition of “done”.  
+                Missing details such as required fields, validation rules, security constraints, and integration points with the HR/EHR system.
+            </td>
+            <td class="score">4</td>
+        </tr>
+        <tr>
+            <td>Business Value Alignment</td>
+            <td>
+                The story does not articulate a concrete healthcare benefit (e.g., faster staff onboarding, compliance with credentialing policies, reduction of manual errors).  
+                Consequently, the link to patient safety, operational efficiency, or regulatory compliance is missing.
+            </td>
+            <td class="score">3</td>
+        </tr>
+        <tr>
+            <td>Testability</td>
+            <td>
+                Because acceptance criteria are absent, QA cannot derive concrete test cases.  
+                No indication of success/failure conditions, data privacy checks, or performance expectations.
+            </td>
+            <td class="score">5</td>
+        </tr>
+        <tr>
+            <td>Technical Feasibility</td>
+            <td>
+                The story does not mention system constraints (e.g., HIPAA‑compliant storage, integration with existing staff directory, role‑based access).  
+                While the concept is feasible, the lack of technical context makes sizing and risk assessment difficult.
+            </td>
+            <td class="score">6</td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="overall"><strong>Overall Score:</strong> <span class="score">23 / 100</span></p>
+
+<h2>Improvement Recommendations</h2>
+<ul class="improvement">
+    <li><strong>Clarify the actor and intent.</strong> Replace “user” with a specific role (e.g., “Hospital staff member” or “HR administrator”) and rewrite the goal (e.g., “I want to view and edit my employee profile in the staff self‑service portal”).</li>
+    <li><strong>Define explicit acceptance criteria.</strong> Example:
+        <ul>
+            <li>All mandatory fields (name, role, license number, contact info) must be editable.</li>
+            <li>Changes are saved only after successful validation against the HR master data.</li>
+            <li>Audit log entry is created for every profile update (HIPAA/PoPIA compliance).</li>
+            <li>System displays a confirmation message within 2 seconds.</li>
+        </ul>
+    </li>
+    <li><strong>Link to business value.</strong> State the measurable benefit, e.g., “reduces staff onboarding time by 30 % and ensures credentialing data remains compliant with regulatory standards.”</li>
+    <li><strong>Specify pre‑conditions and dependencies.</strong> Include items such as:
+        <ul>
+            <li>User must be authenticated via SSO.</li>
+            <li>Employee record must exist in the central HR repository.</li>
+            <li>Integration with the EHR’s user‑management API is required.</li>
+        </ul>
+    </li>
+    <li><strong>Make the story testable.</strong> Provide test scenarios:
+        <ul>
+            <li>Valid update – data saved and audit logged.</li>
+            <li>Invalid input – appropriate error messages displayed.</li>
+            <li>Unauthorized user – access denied.</li>
+            <li>Performance – page loads < 3 seconds under typical load.</li>
+        </ul>
+    </li>
+    <li><strong>Address technical constraints.</strong> Mention:
+        <ul>
+            <li>Data must be encrypted at rest and in transit (HIPAA).</li>
+            <li>Role‑based access control aligned with hospital policy.</li>
+            <li>Support for HL7/FHIR if profile data is shared with clinical systems.</li>
+        </ul>
+    </li>
+</ul>
+
+<p>By incorporating the above refinements, the story will become clear, measurable, and aligned with the regulatory and operational goals of a healthcare organization, enabling the cross‑functional team to deliver value with minimal rework.</p>
+
+</body>
+</html>
+```
